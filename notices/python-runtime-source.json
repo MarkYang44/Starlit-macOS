@@ -1,0 +1,28 @@
+{
+  "distribution": "cpython-3.13.18+20261026-aarch64-apple-darwin-install_only_stripped.tar.gz",
+  "url": "https://github.com/astral-sh/python-build-standalone/releases/download/20261026/cpython-3.13.18%2B20261026-aarch64-apple-darwin-install_only_stripped.tar.gz",
+  "note": "License texts from the same CPython version/platform distribution; original native build timestamp was not retained.",
+  "native_license_sources": [
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.bdb.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.bzip2.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.cpython.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.expat.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.libX11.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.libXau.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.libedit.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.libffi.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.liblzma.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.libuuid.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.libxcb.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.mpdecimal.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.ncurses.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.openssl-3.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.sqlite.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.tcl.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.tix.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.zlib-ng.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.zlib.txt",
+    "https://raw.githubusercontent.com/astral-sh/python-build-standalone/20261026/LICENSE.zstd.txt"
+  ]
+}

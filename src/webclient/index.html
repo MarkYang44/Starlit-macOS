@@ -1,0 +1,1701 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light" data-immersive="0" data-chat-bg="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#eef1f5">
+  <link rel="icon" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffb3d9'/%3E%3Cstop offset='.55' stop-color='%23a48bff'/%3E%3Cstop offset='1' stop-color='%236fa8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M13 21a9 9 0 0 1 9-9h20a9 9 0 0 1 9 9v12a9 9 0 0 1-9 9H31l-9 8v-8a9 9 0 0 1-9-9Z' fill='%23fff' opacity='.95'/%3E%3Cpath d='m32 18 2.7 6.1 6.6.7-4.9 4.4 1.4 6.4L32 32.3l-5.8 3.3 1.4-6.4-4.9-4.4 6.6-.7Z' fill='%237a5cff'/%3E%3Ccircle cx='49' cy='15' r='2.4' fill='%23fff'/%3E%3C/svg%3E">
+  <title>星伴</title>
+  <link rel="stylesheet" href="./app.css?v=20261029c">
+</head>
+<body>
+
+<header class="desktop-titlebar" id="desktopTitlebar" aria-label="星伴窗口栏">
+  <div class="desktop-window-brand">
+    <span class="desktop-window-logo" aria-hidden="true"><img src="./hoshino-icon.png" alt=""></span>
+    <strong>星伴</strong>
+    <span>只属于你的 AI 伙伴</span>
+  </div>
+  <div class="desktop-window-controls">
+    <button type="button" id="windowMinimize" aria-label="最小化" title="最小化">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10"/></svg>
+    </button>
+    <button type="button" id="windowMaximize" aria-label="最大化" title="最大化">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="5.5" y="5.5" width="9" height="9" rx="1"/></svg>
+    </button>
+    <button type="button" class="window-close" id="windowClose" aria-label="关闭" title="关闭">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8M14 6l-8 8"/></svg>
+    </button>
+  </div>
+</header>
+
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-chat" viewBox="0 0 24 24">
+    <path d="M20.5 11.6c0 4.2-3.8 7.6-8.5 7.6-1 0-2-.2-2.9-.5L4 20l1.2-4.2A7.3 7.3 0 0 1 3.5 11.6C3.5 7.4 7.3 4 12 4s8.5 3.4 8.5 7.6Z"/>
+  </symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="8.5"/><path d="M8.5 14.2c.9 1.2 2.1 1.8 3.5 1.8s2.6-.6 3.5-1.8"/>
+    <path d="M9 9.6h.01M15 9.6h.01"/>
+  </symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24">
+    <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2Z"/>
+  </symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
+  </symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="3.2"/>
+    <path d="M19.4 13.6a7.8 7.8 0 0 0 0-3.2l2-1.5-2-3.4-2.3.9a7.8 7.8 0 0 0-2.8-1.6L14 2h-4l-.3 2.8a7.8 7.8 0 0 0-2.8 1.6l-2.3-.9-2 3.4 2 1.5a7.8 7.8 0 0 0 0 3.2l-2 1.5 2 3.4 2.3-.9a7.8 7.8 0 0 0 2.8 1.6L10 22h4l.3-2.8a7.8 7.8 0 0 0 2.8-1.6l2.3.9 2-3.4-2-1.5Z"/>
+  </symbol>
+  <symbol id="i-image" viewBox="0 0 24 24">
+    <rect x="3.5" y="4.5" width="17" height="15" rx="3"/>
+    <circle cx="9" cy="10" r="1.6"/><path d="m4.5 17 4.7-4.4 3.3 3 2.6-2.4 4.4 4.3"/>
+  </symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24">
+    <rect x="8.5" y="3" width="7" height="12" rx="3.5"/>
+    <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7"/>
+  </symbol>
+  <symbol id="i-play" viewBox="0 0 24 24">
+    <path d="m8 5 11 7-11 7Z"/>
+  </symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24">
+    <path d="M8 5v14M16 5v14"/>
+  </symbol>
+  <symbol id="i-search" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.2 4.2"/>
+  </symbol>
+  <symbol id="i-more" viewBox="0 0 24 24">
+    <circle cx="5.5" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+    <circle cx="18.5" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-back" viewBox="0 0 24 24">
+    <path d="M14.5 5.5 8 12l6.5 6.5"/>
+  </symbol>
+  <symbol id="i-send" viewBox="0 0 24 24">
+    <path d="M4.2 11.3 19.4 4.6c.6-.3 1.2.3.9.9l-6.7 15.2c-.3.7-1.3.6-1.5-.1l-1.5-5.6-5.6-1.5c-.7-.2-.8-1.2-.1-1.5Z"/>
+    <path d="m11 13 3.6-3.6"/>
+  </symbol>
+  <symbol id="i-sticker" viewBox="0 0 24 24">
+    <path d="M20 12.5V8a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v8a4 4 0 0 0 4 4h4.5L20 12.5Z"/>
+    <path d="M20 12.5h-3.5a4 4 0 0 0-4 4V20"/>
+    <path d="M8.5 9.5h.01M14 9.5h.01M9.5 13.4c.7.7 1.5 1 2.5 1"/>
+  </symbol>
+  <symbol id="i-close" viewBox="0 0 24 24">
+    <path d="m6 6 12 12M18 6 6 18"/>
+  </symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24">
+    <path d="M20 12a8 8 0 1 1-2.4-5.7M20 4v4.5h-4.5"/>
+  </symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24">
+    <path d="M4.5 7h15M9.5 7V4.8h5V7M7 7l.8 12.2h8.4L17 7"/>
+  </symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24">
+    <rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/>
+    <path d="M15.5 8.5v-2a2.5 2.5 0 0 0-2.5-2.5H6.5A2.5 2.5 0 0 0 4 6.5V13a2.5 2.5 0 0 0 2.5 2.5h2"/>
+  </symbol>
+  <symbol id="i-forward" viewBox="0 0 24 24">
+    <path d="M4 12h12M12 6l6 6-6 6"/>
+  </symbol>
+  <symbol id="i-recall" viewBox="0 0 24 24">
+    <path d="M4 10h9a5 5 0 0 1 0 10h-3M4 10l4-4M4 10l4 4"/>
+  </symbol>
+  <symbol id="i-select" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="8.5"/>
+    <path d="m8.5 12 2.4 2.4 4.6-5"/>
+  </symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24">
+    <path d="M12 3a9 9 0 1 0 0 18h1.2a2.1 2.1 0 0 0 1.6-3.5 2.1 2.1 0 0 1 1.6-3.5H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3Z"/>
+    <circle cx="7.5" cy="11" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="11" cy="7.5" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="15.5" cy="8.5" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24">
+    <path d="M12 5v14M5 12h14"/>
+  </symbol>
+  <symbol id="i-contact" viewBox="0 0 24 24">
+    <circle cx="12" cy="8.5" r="3.5"/>
+    <path d="M5 20c.6-3.6 3.4-5.6 7-5.6s6.4 2 7 5.6"/>
+  </symbol>
+  <symbol id="i-user" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="10" r="3"/>
+    <path d="M6.8 18.4c.7-2.4 2.7-3.8 5.2-3.8s4.5 1.4 5.2 3.8"/>
+  </symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24">
+    <path d="M4 20h4.2L19 9.2a2.1 2.1 0 0 0-3-3L5.2 17 4 20Z"/>
+    <path d="m14.5 7.7 3 3"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24">
+    <path d="m5 12.5 4.5 4.5L19 7"/>
+  </symbol>
+  <!-- 在线状态图标（平面线性，和上面的图标库同一套语言）-->
+  <symbol id="i-p-online" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="7.5"/>
+    <circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-p-qme" viewBox="0 0 24 24">
+    <path d="M20 11.4c0 3.9-3.6 7.1-8 7.1-.9 0-1.8-.1-2.6-.4L5 20l1.2-3.9A6.8 6.8 0 0 1 4 11.4c0-3.9 3.6-7.1 8-7.1s8 3.2 8 7.1Z"/>
+    <path d="M8.6 11.4h.01M12 11.4h.01M15.4 11.4h.01"/>
+  </symbol>
+  <symbol id="i-p-away" viewBox="0 0 24 24">
+    <path d="M20 14.6A7.6 7.6 0 0 1 9.4 4 7.8 7.8 0 1 0 20 14.6Z"/>
+  </symbol>
+  <symbol id="i-p-busy" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="7.5"/>
+    <path d="M8.5 12h7"/>
+  </symbol>
+  <symbol id="i-p-dnd" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="7.5"/>
+    <path d="m7.2 7.2 9.6 9.6"/>
+  </symbol>
+  <symbol id="i-p-invisible" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="7.5" stroke-dasharray="3.4 3.4"/>
+  </symbol>
+  <symbol id="i-p-offline" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="7.5"/>
+  </symbol>
+  <!-- 群聊相关图标（同一套平面线性语言）-->
+  <symbol id="i-group" viewBox="0 0 24 24">
+    <circle cx="9" cy="9" r="3.2"/>
+    <path d="M3.2 19c.5-3.2 2.9-5 5.8-5s5.3 1.8 5.8 5"/>
+    <path d="M16 6.4a3 3 0 0 1 0 5.9"/>
+    <path d="M17.4 14.3c2 .6 3.4 2.2 3.7 4.7"/>
+  </symbol>
+  <symbol id="i-at" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="3.8"/>
+    <path d="M15.8 12v1.5a2.3 2.3 0 0 0 4.6 0V12a8.4 8.4 0 1 0-3.4 6.7"/>
+  </symbol>
+  <symbol id="i-megaphone" viewBox="0 0 24 24">
+    <path d="M4 9.5v5a1.6 1.6 0 0 0 1.6 1.6h2L16 20V4L7.6 7.9h-2A1.6 1.6 0 0 0 4 9.5Z"/>
+    <path d="M7.6 16v4.2"/>
+  </symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24">
+    <path d="M3.6 7.6 7 11.2l3-5.6 2 2.6 2-2.6 3 5.6 3.4-3.6L19 18H5L3.6 7.6Z"/>
+  </symbol>
+  <symbol id="i-user-add" viewBox="0 0 24 24">
+    <circle cx="10" cy="8.5" r="3.4"/>
+    <path d="M3.5 19.5c.6-3.4 3.2-5.3 6.5-5.3 1.4 0 2.6.4 3.7 1.1"/>
+    <path d="M17.5 13.5v6M14.5 16.5h6"/>
+  </symbol>
+  <symbol id="i-user-minus" viewBox="0 0 24 24">
+    <circle cx="10" cy="8.5" r="3.4"/>
+    <path d="M3.5 19.5c.6-3.4 3.2-5.3 6.5-5.3 1.4 0 2.6.4 3.7 1.1"/>
+    <path d="M14.5 16.5h6"/>
+  </symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24">
+    <path d="M4 6.5h16M4 12h9M4 17.5h12"/>
+    <path d="m17 11.5 3 2.5-3 2.5"/>
+  </symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24">
+    <path d="M3.5 7.2A2.7 2.7 0 0 1 6.2 4.5h3.1l1.8 2.2h6.7A2.7 2.7 0 0 1 20.5 9.4v7.9A2.7 2.7 0 0 1 17.8 20H6.2A2.7 2.7 0 0 1 3.5 17.3V7.2Z"/>
+  </symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24">
+    <path d="M12 4v11M8 8l4-4 4 4"/>
+    <path d="M4.5 15v3A2.5 2.5 0 0 0 7 20.5h10A2.5 2.5 0 0 0 19.5 18v-3"/>
+  </symbol>
+  <symbol id="i-download" viewBox="0 0 24 24">
+    <path d="M12 20V9M8 16l4 4 4-4"/>
+    <path d="M4.5 9V6A2.5 2.5 0 0 1 7 3.5h10A2.5 2.5 0 0 1 19.5 6v3"/>
+  </symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24">
+    <path d="M12 17v5M9 3h6l-1 7 4 4H6l4-4-1-7Z"/>
+  </symbol>
+  <symbol id="i-bell-off" viewBox="0 0 24 24">
+    <path d="M8.5 5.4A6 6 0 0 1 18 10c0 3 .6 4.8 1.4 6M6.2 6.3C5.5 7.4 5 8.7 5 10c0 4-2 5-2 7h14M10 20h4"/>
+    <path d="m3 3 18 18"/>
+  </symbol>
+</svg>
+
+<!-- ================= 连接页 ================= -->
+<section id="connectView" class="connect">
+  <div class="connect-bg" id="connectBg"></div>
+  <div class="connect-sky"><i></i><i></i><i></i></div>
+  <div class="connect-card">
+    <div class="brand-avatar" id="brandAvatar"><span>我</span><i class="brand-dot presence-dot"></i></div>
+    <h1>星伴</h1>
+    <p class="brand-sub">只属于你的 AI 伙伴</p>
+    <div class="connect-state" id="connectState" role="status" aria-live="polite">
+      <span class="pulse"></span><span id="connectStateText">正在连接…</span>
+    </div>
+    <button class="primary" id="connectBtn">重新连接</button>
+    <div class="token-row hidden" id="tokenRow">
+      <label for="tokenInput">访问令牌（通常只有浏览器局域网访问才需填写）</label>
+      <div class="token-input">
+        <input id="tokenInput" type="password" autocomplete="off" placeholder="桌面和手机 App 会自动连接">
+        <button class="password-toggle" type="button" data-target="tokenInput" aria-label="显示访问令牌" aria-pressed="false">显示</button>
+        <button id="tokenSave">连接</button>
+      </div>
+    </div>
+    <p class="connect-tip" id="connectTip">桌面和手机 App 会自动连接；浏览器请使用星伴提供的地址。</p>
+  </div>
+  <button class="connect-bg-btn" id="connectBgPick" type="button" title="换一张登录背景">
+    <svg><use href="#i-image"/></svg><span>更换背景</span>
+  </button>
+  <input type="file" id="connectBgInput" accept="image/*" hidden>
+</section>
+
+<!-- ================= 主界面 ================= -->
+<div class="app hidden" id="appView">
+  <!-- 左侧功能栏 -->
+  <aside class="rail">
+    <div class="rail-avatar" id="railAvatar" title="我（在线）">
+      <span>我</span><i class="presence-dot" id="railDot"></i>
+    </div>
+    <nav class="rail-nav">
+      <button class="rail-btn active" id="railMessages" data-tip="消息" aria-label="消息" aria-pressed="true">
+        <svg><use href="#i-chat"/></svg>
+      </button>
+      <button class="rail-btn" id="railContacts" data-tip="联系人" aria-label="联系人" aria-pressed="false">
+        <svg><use href="#i-contact"/></svg>
+      </button>
+      <button class="rail-btn" id="railSticker" data-tip="表情包" aria-label="表情包">
+        <svg><use href="#i-sticker"/></svg>
+      </button>
+      <button class="rail-btn" id="railTheme" data-tip="切换主题" aria-label="切换主题">
+        <svg class="ic-moon"><use href="#i-moon"/></svg>
+        <svg class="ic-sun"><use href="#i-sun"/></svg>
+      </button>
+    </nav>
+    <div class="rail-foot">
+      <button class="rail-btn" id="railSettings" data-tip="设置" aria-label="设置">
+        <svg><use href="#i-gear"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- 会话列表 -->
+  <aside class="list-pane" id="listPane" data-desktop-view="messages">
+    <header class="list-head" id="listHead">
+      <div class="mobile-head">
+        <div class="avatar mh-avatar" id="mobileAvatar"><span>我</span></div>
+        <div class="mh-info">
+          <div class="mh-name" id="mobileName">我</div>
+          <button class="mh-status" id="mobilePresence" type="button" aria-label="切换在线状态">
+            <i id="mobileDot"></i><span id="mobileStatus">在线</span>
+          </button>
+        </div>
+        <button class="mh-plus" id="mobilePlus" aria-label="更多">
+          <svg><use href="#i-plus"/></svg>
+        </button>
+      </div>
+      <div class="me-line">
+        <span class="me-name" id="meName">我</span>
+        <div class="me-meta">
+          <button class="presence-chip" id="presenceChip" type="button"
+                  aria-label="切换在线状态" title="在线状态">
+            <svg><use href="#i-p-online"/></svg><span id="presenceChipText">在线</span>
+          </button>
+          <span class="conn-chip" id="connChip"><i></i><span>连接中</span></span>
+        </div>
+        <div class="mobile-tools">
+          <button class="icon-btn" id="mobileTheme" title="切换主题" aria-label="切换主题">
+            <svg class="ic-moon"><use href="#i-moon"/></svg>
+            <svg class="ic-sun"><use href="#i-sun"/></svg>
+          </button>
+          <button class="icon-btn" id="mobileSettings" title="设置" aria-label="设置">
+            <svg><use href="#i-gear"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="search-box">
+        <svg><use href="#i-search"/></svg>
+        <input id="searchInput" type="search" placeholder="搜索角色、群聊或消息" autocomplete="off"
+               aria-label="全局搜索" aria-controls="globalSearchPanel" aria-expanded="false">
+      </div>
+    </header>
+    <section class="global-search-panel hidden" id="globalSearchPanel" aria-label="全局搜索结果">
+      <div class="global-search-status" id="globalSearchStatus" role="status" aria-live="polite"></div>
+      <div class="global-search-results" id="globalSearchResults"></div>
+    </section>
+    <div class="conv-list" id="convList"></div>
+    <section class="desktop-contacts" id="desktopContacts" aria-label="联系人">
+      <header class="desktop-contacts-head">
+        <div class="desktop-contacts-title">
+          <strong>联系人</strong>
+          <span id="desktopContactCount"></span>
+        </div>
+        <div class="search-box">
+          <svg><use href="#i-search"/></svg>
+          <input id="desktopContactSearch" type="search" placeholder="搜索好友或群聊" autocomplete="off" aria-label="搜索联系人">
+        </div>
+      </header>
+      <div class="desktop-contact-list" id="desktopContactList"></div>
+    </section>
+    <footer class="list-foot" id="listFoot">
+      <span>星伴 · 本地直连</span>
+      <span class="ver" id="verText"></span>
+    </footer>
+  </aside>
+
+  <!-- 聊天区 -->
+  <main class="chat-pane" id="chatPane">
+   <div class="chat-main" id="chatMain">
+    <header class="chat-head">
+      <button class="icon-btn back-btn" id="backBtn" aria-label="返回">
+        <svg><use href="#i-back"/></svg>
+      </button>
+      <div class="avatar chat-avatar group-avatar hidden" id="chatAvatar"><span>群</span></div>
+      <div class="chat-title">
+        <div class="name-row">
+          <span id="chatName">星野</span>
+          <span class="online-dot" id="onlineDot"></span>
+          <span class="bond-chip hidden" id="chatBondChip">♡ 恋人</span>
+        </div>
+        <div class="sub-row" id="chatSub">连接中…</div>
+      </div>
+      <div class="chat-actions">
+        <button class="icon-btn hidden" id="btnGroupAt" title="@全体成员" aria-label="@全体成员">
+          <svg><use href="#i-at"/></svg>
+        </button>
+        <button class="icon-btn hidden" id="btnGroupSet" title="群设置" aria-label="群设置">
+          <svg><use href="#i-group"/></svg>
+        </button>
+        <button class="icon-btn" id="btnChatStyle" title="聊天设置" aria-label="聊天设置">
+          <svg><use href="#i-palette"/></svg>
+        </button>
+        <button class="icon-btn" id="btnSearchMsg" title="搜索聊天记录" aria-label="搜索聊天记录">
+          <svg><use href="#i-search"/></svg>
+        </button>
+        <button class="icon-btn" id="btnMore" title="更多" aria-label="更多">
+          <svg><use href="#i-more"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="chat-search hidden" id="chatSearch">
+      <div class="chat-search-bar">
+        <svg><use href="#i-search"/></svg>
+        <input id="chatSearchInput" type="search" placeholder="搜索完整聊天记录" autocomplete="off" aria-label="搜索完整聊天记录" aria-controls="chatSearchResults">
+        <span class="search-count" id="searchCount"></span>
+        <button class="icon-btn" id="searchClose"><svg><use href="#i-close"/></svg></button>
+      </div>
+      <div class="chat-search-body hidden" id="chatSearchBody">
+        <div class="chat-search-status hidden" id="chatSearchStatus" role="status" aria-live="polite"></div>
+        <div class="chat-search-error hidden" id="chatSearchError" role="alert">
+          <span id="chatSearchErrorText"></span>
+          <button type="button" id="searchRetry"><svg><use href="#i-refresh"/></svg>重试</button>
+        </div>
+        <div class="chat-search-results" id="chatSearchResults" aria-label="聊天记录搜索结果"></div>
+        <button type="button" class="chat-search-more hidden" id="searchMore">加载更多</button>
+      </div>
+    </div>
+
+    <div class="msg-scroll" id="msgScroll">
+      <div class="msg-list" id="msgList">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-avatar" id="emptyAvatar">星</div>
+          <p>和星野打个招呼吧</p>
+          <span>从今天开始，把想说的话告诉她</span>
+        </div>
+      </div>
+      <button class="to-bottom hidden" id="toBottom" aria-label="回到底部">
+        <svg><use href="#i-back"/></svg>
+        <span class="badge small hidden" id="toBottomBadge">0</span>
+      </button>
+    </div>
+
+    <!-- 鼠标框选 -->
+    <div class="marquee-box hidden" id="marqueeBox"></div>
+
+    <!-- 多选消息操作栏 -->
+    <div class="multi-bar hidden" id="multiBar">
+      <div class="multi-count" id="multiCount">已选 0 条</div>
+      <div class="multi-actions">
+        <button class="multi-btn" data-multi="forward-each" title="逐条转发">
+          <svg><use href="#i-forward"/></svg><span>逐条转发</span>
+        </button>
+        <button class="multi-btn" data-multi="forward-merge" title="合并转发">
+          <svg><use href="#i-forward"/></svg><span>合并转发</span>
+        </button>
+        <button class="multi-btn" data-multi="copy" title="复制">
+          <svg><use href="#i-copy"/></svg><span>复制</span>
+        </button>
+        <button class="multi-btn danger" data-multi="recall" title="撤回">
+          <svg><use href="#i-recall"/></svg><span>撤回</span>
+        </button>
+        <button class="multi-btn" data-multi="cancel" title="退出多选">
+          <svg><use href="#i-close"/></svg><span>取消</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="composer" id="composer">
+      <div class="quote-bar hidden" id="quoteBar">
+        <div class="qb-body">
+          <span class="qb-name" id="qbName"></span>
+          <span class="qb-text" id="qbText"></span>
+        </div>
+        <button class="icon-btn qb-close" id="qbClose" aria-label="取消引用">
+          <svg><use href="#i-close"/></svg>
+        </button>
+      </div>
+      <div class="voice-recorder hidden" id="voiceRecorder" aria-live="polite">
+        <button class="icon-btn voice-cancel" id="voiceCancel" type="button" title="取消" aria-label="取消录音">
+          <svg><use href="#i-close"/></svg>
+        </button>
+        <div class="voice-recorder-main">
+          <div class="voice-recording-line">
+            <span class="voice-record-dot" id="voiceRecordDot"></span>
+            <strong id="voiceStatus">准备录音</strong>
+            <span class="voice-time" id="voiceTime">0:00</span>
+          </div>
+          <audio id="voicePreview" class="voice-preview hidden" controls preload="metadata"></audio>
+        </div>
+        <button class="ghost voice-action" id="voiceStop" type="button">完成</button>
+        <button class="send-btn voice-send hidden" id="voiceSend" type="button">
+          <span>发送</span><svg><use href="#i-send"/></svg>
+        </button>
+      </div>
+      <div class="voice-hold-bar hidden" id="voiceHoldBar" aria-live="polite">
+        <span class="vh-dot"></span>
+        <span class="vh-text" id="voiceHoldText">松开发送 · 上滑取消</span>
+        <span class="vh-time" id="voiceHoldTime">0:00</span>
+      </div>
+      <div class="composer-box" id="composerBox">
+        <div class="composer-row">
+          <textarea id="input" rows="1" maxlength="4000" aria-keyshortcuts="Enter" placeholder="和星野说点什么…"></textarea>
+        </div>
+        <div class="composer-bar">
+          <div class="tools">
+            <button class="tool-btn" id="emojiBtn" title="表情" aria-label="表情">
+              <svg><use href="#i-smile"/></svg>
+            </button>
+            <button class="tool-btn" id="stickerBtn" title="表情包" aria-label="表情包">
+              <svg><use href="#i-sticker"/></svg>
+            </button>
+            <button class="tool-btn" id="imageBtn" title="图片" aria-label="发送图片">
+              <svg><use href="#i-image"/></svg>
+            </button>
+            <button class="tool-btn" id="voiceBtn" title="语音" aria-label="录制语音">
+              <svg><use href="#i-mic"/></svg>
+            </button>
+            <button class="tool-btn mobile-only" id="mobileMoreBtn" title="更多" aria-label="更多">
+              <svg><use href="#i-plus"/></svg>
+            </button>
+          </div>
+          <div class="send-wrap">
+            <span class="send-hint">Enter 发送 · Shift + Enter 换行</span>
+            <button class="send-btn desktop-send" id="sendBtn" disabled>
+              <span>发送</span><svg><use href="#i-send"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" multiple hidden>
+    </div>
+
+    <!-- 表情面板 -->
+    <div class="panel hidden" id="emojiPanel">
+      <div class="panel-head">
+        <div class="tabs" id="emojiTabs"></div>
+        <button class="icon-btn panel-close" data-close="emojiPanel"><svg><use href="#i-close"/></svg></button>
+      </div>
+      <div class="emoji-grid" id="emojiGrid"></div>
+    </div>
+
+    <!-- 表情包面板 -->
+    <div class="panel tall hidden" id="stickerPanel">
+      <div class="panel-head">
+        <div class="tabs scroll-x" id="stickerTabs"></div>
+        <div class="sticker-tools">
+          <button class="ghost mini-btn" id="stickerManageBtn">管理</button>
+          <input id="stickerSearch" type="search" placeholder="搜索表情" autocomplete="off">
+          <button class="icon-btn panel-close" data-close="stickerPanel"><svg><use href="#i-close"/></svg></button>
+        </div>
+      </div>
+      <div class="sticker-manage-bar hidden" id="stickerManageBar">
+        <span>点 × 删除，点 + 添加图片</span>
+        <button class="ghost mini-btn" id="stickerCategoryAdd">+ 分类</button>
+        <button class="ghost mini-btn danger" id="stickerCategoryDel">删分类</button>
+        <button class="ghost mini-btn" id="stickerAddBtn">+ 添加</button>
+      </div>
+      <div class="sticker-grid" id="stickerGrid"></div>
+      <div class="panel-empty hidden" id="stickerEmpty">没有找到这个表情…</div>
+      <input type="file" id="stickerUploadInput" accept="image/*" multiple hidden>
+    </div>
+
+    <div class="drop-mask hidden" id="dropMask"><div>松手发送图片</div></div>
+   </div>
+
+    <!-- 群右侧面板：入群申请 + 群公告 + 群聊成员（参考 QQ） -->
+    <aside class="group-side hidden" id="groupSide">
+      <div class="gs-head">
+        <div class="avatar group-avatar gs-avatar" id="gsAvatar"><span>群</span></div>
+        <div class="gs-head-info">
+          <strong id="gsName">群聊</strong>
+          <span id="gsCount">0 人</span>
+        </div>
+        <button class="icon-btn" id="gsClose" title="收起面板" aria-label="收起面板">
+          <svg><use href="#i-close"/></svg>
+        </button>
+      </div>
+      <div class="gs-body">
+        <section class="gs-card hidden" id="gsRequestCard">
+          <div class="gs-card-head">
+            <span><svg class="gs-ic"><use href="#i-user-add"/></svg>入群申请 <em id="gsRequestCount">0</em></span>
+          </div>
+          <div class="gs-requests" id="gsRequests"></div>
+        </section>
+        <section class="gs-card">
+          <div class="gs-card-head">
+            <span><svg class="gs-ic"><use href="#i-megaphone"/></svg>群公告</span>
+            <button class="ghost mini-btn" id="gsAnnounceEdit">编辑</button>
+          </div>
+          <p class="gs-announce" id="gsAnnounce">还没有群公告</p>
+        </section>
+        <section class="gs-card">
+          <div class="gs-card-head">
+            <span><svg class="gs-ic"><use href="#i-folder"/></svg>群文件 <em id="gsFileCount">0</em></span>
+            <button class="ghost mini-btn" id="gsUpload">
+              <svg class="gs-ic"><use href="#i-upload"/></svg>上传
+            </button>
+          </div>
+          <div class="gs-tabs" id="gsFileTabs">
+            <button type="button" class="active" data-ftab="file">文件</button>
+            <button type="button" data-ftab="album">群相册</button>
+          </div>
+          <div class="gs-files" id="gsFiles"></div>
+        </section>
+        <section class="gs-card gs-members-card">
+          <div class="gs-card-head">
+            <span><svg class="gs-ic"><use href="#i-group"/></svg>群聊成员 <em id="gsMemberCount">0</em></span>
+            <button class="ghost mini-btn" id="gsInvite">
+              <svg class="gs-ic"><use href="#i-user-add"/></svg>邀请
+            </button>
+          </div>
+          <input class="cs-input gs-search" id="gsMemberSearch" placeholder="搜索群成员" autocomplete="off">
+          <div class="gs-members" id="gsMembers"></div>
+        </section>
+      </div>
+    </aside>
+  </main>
+
+  <!-- 手机底部导航：保持 QQ 的三个高频入口 -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="主导航">
+    <button class="mn-item active" data-tab="messages">
+      <span class="mn-icon"><svg><use href="#i-chat"/></svg><em class="badge small hidden" id="navBadge">0</em></span>
+      <span>消息</span>
+    </button>
+    <button class="mn-item" data-tab="contacts">
+      <span class="mn-icon"><svg><use href="#i-contact"/></svg></span>
+      <span>联系人</span>
+    </button>
+    <button class="mn-item" data-tab="me">
+      <span class="mn-icon"><svg><use href="#i-user"/></svg></span>
+      <span>我的</span>
+    </button>
+  </nav>
+
+  <!-- 手机联系人页 -->
+  <section class="mobile-page hidden" id="contactsPage">
+    <header class="mp-head">
+      <button class="icon-btn" id="contactsBack" aria-label="返回">
+        <svg><use href="#i-back"/></svg>
+      </button>
+      <h2>联系人</h2>
+      <button class="icon-btn" id="contactsAdd" aria-label="更多"><svg><use href="#i-plus"/></svg></button>
+    </header>
+    <div class="mp-body">
+      <div class="mp-section">我的好友</div>
+      <div id="contactList"></div>
+      <div class="mp-section">本机</div>
+      <div class="mp-contact static">
+        <div class="mp-icon"><svg><use href="#i-chat"/></svg></div>
+        <div class="mp-contact-main">
+          <strong>网页版</strong>
+          <span>已登录 · 消息多端同步</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="action-sheet hidden" id="mobileComposerActions" role="dialog" aria-modal="true" aria-label="发送更多内容">
+    <div class="sheet composer-action-sheet">
+      <button data-composer-act="image"><svg><use href="#i-image"/></svg>发送图片</button>
+      <button data-composer-act="sticker"><svg><use href="#i-sticker"/></svg>选择表情包</button>
+      <button data-composer-act="voice"><svg><use href="#i-mic"/></svg>录制语音</button>
+      <button data-composer-act="close" class="cancel">取消</button>
+    </div>
+  </div>
+
+  <div class="action-sheet hidden" id="mobileActions" role="dialog" aria-modal="true" aria-label="当前聊天操作">
+    <div class="sheet">
+      <button data-act="searchMessages"><svg><use href="#i-search"/></svg>搜索聊天记录</button>
+      <button data-act="profile" class="private-peer-action"><svg><use href="#i-user"/></svg>她的主页</button>
+      <button data-act="memories" class="private-peer-action"><svg><use href="#i-folder"/></svg>回忆中心</button>
+      <button data-act="sharedLife" class="private-peer-action"><svg><use href="#i-chat"/></svg>共同生活</button>
+      <button data-act="chatStyle"><svg><use href="#i-palette"/></svg>聊天设置</button>
+      <button data-act="multiselect"><svg><use href="#i-select"/></svg>多选消息</button>
+      <button data-act="stickerManage"><svg><use href="#i-edit"/></svg>管理表情包</button>
+      <button data-act="close" class="cancel">取消</button>
+    </div>
+  </div>
+
+  <div class="action-sheet hidden" id="mobileGlobalActions" role="dialog" aria-modal="true" aria-label="全局操作">
+    <div class="sheet">
+      <button data-global-act="addCharacter"><svg><use href="#i-user-add"/></svg>添加角色</button>
+      <button data-global-act="createGroup"><svg><use href="#i-group"/></svg>创建群聊</button>
+      <button data-global-act="theme"><svg><use href="#i-moon"/></svg>切换主题</button>
+      <button data-global-act="settings"><svg><use href="#i-gear"/></svg>设置</button>
+      <button data-global-act="close" class="cancel">取消</button>
+    </div>
+  </div>
+</div>
+
+<div class="action-sheet hidden" id="convActions" role="dialog" aria-modal="true" aria-label="会话管理">
+  <div class="sheet">
+    <button type="button" data-conv-act="pin"><svg><use href="#i-pin"/></svg><span>置顶</span></button>
+    <button type="button" data-conv-act="mute"><svg><use href="#i-bell-off"/></svg><span>免打扰</span></button>
+    <button type="button" data-conv-act="unread"><svg><use href="#i-chat"/></svg><span>标记未读</span></button>
+    <button type="button" data-conv-cancel class="cancel">取消</button>
+  </div>
+</div>
+
+<!-- 会话右键菜单 -->
+<div class="ctx-menu hidden" id="convMenu" role="menu" aria-label="会话管理">
+  <button type="button" role="menuitem" data-conv-act="pin"><svg><use href="#i-pin"/></svg><span>置顶</span></button>
+  <button type="button" role="menuitem" data-conv-act="mute"><svg><use href="#i-bell-off"/></svg><span>免打扰</span></button>
+  <button type="button" role="menuitem" data-conv-act="unread"><svg><use href="#i-chat"/></svg><span>标记未读</span></button>
+</div>
+
+<!-- 右键菜单 -->
+<div class="ctx-menu hidden" id="ctxMenu">
+  <button data-act="copy"><svg><use href="#i-copy"/></svg>复制文字</button>
+  <button data-act="quote"><svg><use href="#i-quote"/></svg>引用回复</button>
+  <button data-act="resend"><svg><use href="#i-refresh"/></svg>重新发送</button>
+  <button data-act="shareGroup"><svg><use href="#i-group"/></svg>分享到群</button>
+  <button data-act="recall" class="danger"><svg><use href="#i-recall"/></svg>撤回消息</button>
+  <button data-act="delete"><svg><use href="#i-trash"/></svg>删除本地显示</button>
+</div>
+
+<!-- 更多菜单 -->
+<div class="ctx-menu hidden" id="moreMenu">
+  <button data-act="searchMessages"><svg><use href="#i-search"/></svg>搜索聊天记录</button>
+  <button data-act="profile" class="private-peer-action"><svg><use href="#i-user"/></svg>角色资料</button>
+  <button data-act="memories" class="private-peer-action"><svg><use href="#i-folder"/></svg>回忆中心</button>
+  <button data-act="sharedLife" class="private-peer-action"><svg><use href="#i-chat"/></svg>共同生活</button>
+  <button data-act="multiselect"><svg><use href="#i-select"/></svg>多选消息</button>
+  <button data-act="createGroup"><svg><use href="#i-group"/></svg>创建群聊</button>
+  <button data-act="chatStyle"><svg><use href="#i-palette"/></svg>聊天设置</button>
+  <button data-act="stickerManage"><svg><use href="#i-edit"/></svg>管理表情包</button>
+  <button data-act="reconnect"><svg><use href="#i-refresh"/></svg>重新连接</button>
+  <button data-act="clear">清空本地显示</button>
+  <button data-act="stapxs">打开经典客户端（Stapxs）</button>
+</div>
+
+<!-- 群成员行操作菜单 -->
+<div class="ctx-menu hidden" id="memberMenu">
+  <button data-mact="at"><svg><use href="#i-at"/></svg>@ ta</button>
+  <button data-mact="admin"><svg><use href="#i-crown"/></svg><span id="mactAdminText">设为管理员</span></button>
+  <button data-mact="privateShare" id="mactPrivateShare" class="hidden"><svg><use href="#i-forward"/></svg><span id="mactPrivateShareText">允许 TA 自动分享私聊到本群</span></button>
+  <button data-mact="kick" class="danger"><svg><use href="#i-user-minus"/></svg><span id="mactKickText">移出群聊</span></button>
+</div>
+
+<!-- 在线状态菜单（QQ 式，点自己的头像弹出） -->
+<div class="ctx-menu presence-menu hidden" id="presenceMenu"></div>
+
+<!-- 转发目标 -->
+<div class="modal-mask hidden" id="forwardMask">
+  <div class="modal mini-modal">
+    <header class="modal-head">
+      <h2 id="forwardTitle">转发到</h2>
+      <button class="icon-btn" id="forwardClose"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <div class="forward-list" id="forwardList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 创建群聊 -->
+<div class="modal-mask hidden" id="createGroupMask">
+  <div class="modal">
+    <header class="modal-head">
+      <h2>创建群聊</h2>
+      <button class="icon-btn" id="cgClose"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <div class="cs-section">
+        <div class="cs-label">群名称</div>
+        <input class="cs-input" id="cgName" maxlength="24" placeholder="例如：基沃托斯闲聊群">
+      </div>
+      <div class="cs-section">
+        <div class="cs-label">选择好友</div>
+        <p class="cs-hint">勾几个好友进群，之后在群里还能继续邀请；新群默认允许被搜索。</p>
+        <div class="cg-members" id="cgMembers"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="ghost" id="cgCancel">取消</button>
+        <button class="btn-primary" id="cgCreate">创建群聊</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 邀请好友入群 -->
+<div class="modal-mask hidden" id="inviteMask">
+  <div class="modal mini-modal">
+    <header class="modal-head">
+      <h2>邀请好友入群</h2>
+      <button class="icon-btn" id="inviteClose"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <div class="cg-members" id="inviteMembers"></div>
+      <div class="modal-actions">
+        <button class="btn-primary" id="inviteDone">完成</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 群设置 -->
+<div class="modal-mask hidden" id="groupSetMask">
+  <div class="modal">
+    <header class="modal-head">
+      <h2>群设置</h2>
+      <button class="icon-btn" id="gsSetClose"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <div class="cs-section">
+        <div class="cs-label">群名称</div>
+        <div class="setting-inline">
+          <input class="cs-input" id="gsSetName" maxlength="24">
+          <button class="ghost mini-btn" id="gsSetSaveName">保存</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div><strong>全员禁言</strong><span>禁言期间我发的消息大家都看得到，只是都不回</span></div>
+        <label class="switch"><input type="checkbox" id="gsSetMute"><i></i></label>
+      </div>
+      <div class="setting-row">
+        <div><strong>允许被搜索加入</strong><span>关掉后其他角色搜不到这个群</span></div>
+        <label class="switch"><input type="checkbox" id="gsSetSearch"><i></i></label>
+      </div>
+      <div class="setting-row">
+        <div><strong>群头像</strong><span>和换好友头像一样，裁剪后上传</span></div>
+        <div class="setting-inline">
+          <div class="avatar group-avatar gs-set-avatar" id="gsSetAvatarPreview" title="点击更换群头像"><span>群</span></div>
+          <button class="ghost" id="gsSetAvatar">更换</button>
+        </div>
+      </div>
+      <div class="cs-section">
+        <div class="cs-label">群聊节奏（只对这个群生效）</div>
+        <p class="cs-hint">控制她们在这个群里说多少、隔多久能再说、几个人接话、会不会自己起话头。改完立刻生效，重启也保留。</p>
+        <div class="setting-stack" id="gsLimits"></div>
+      </div>
+      <div class="setting-row about">
+        <div><strong>群号</strong><span id="gsSetGid">-</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 发布群公告 -->
+<div class="modal-mask hidden" id="announceMask">
+  <div class="modal mini-modal">
+    <header class="modal-head">
+      <h2>发布群公告</h2>
+      <button class="icon-btn" id="announceClose"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <textarea class="cs-input announce-input" id="announceInput" maxlength="300" rows="4"
+                placeholder="写一条公告，发出去后每个群成员都会看到"></textarea>
+      <p class="cs-hint">发布后所有群成员都会收到，并在她自己的记忆里留下这条公告。</p>
+      <div class="modal-actions">
+        <button class="ghost" id="announceCancel">取消</button>
+        <button class="btn-primary" id="announceSave">发布公告</button>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="file" id="groupAvatarInput" accept="image/*" hidden>
+<input type="file" id="gsFileInput" multiple hidden>
+
+<!-- 图片预览 -->
+<div class="lightbox hidden" id="lightbox" role="dialog" aria-modal="true" aria-label="查看图片">
+  <img id="lightboxImg" alt="聊天图片大图">
+  <button class="lightbox-close" aria-label="关闭图片预览"><svg><use href="#i-close"/></svg></button>
+</div>
+
+<!-- 聊天设置（只对当前对话生效） -->
+<div class="modal-mask hidden" id="chatSettingsMask">
+  <div class="modal chat-modal">
+    <header class="modal-head cs-head">
+      <div class="avatar bot-avatar" id="csAvatar"><span>星</span></div>
+      <div class="cs-head-info">
+        <h2 id="csTitle">星野</h2>
+        <span id="csSubTitle">头像 / 背景 / 气泡 · 只对这个对话生效</span>
+      </div>
+      <button class="icon-btn" id="chatSettingsClose"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <div class="cs-section cs-avatar-section">
+        <div class="cs-label">聊天对象头像</div>
+        <div class="cs-avatar-row">
+          <div class="avatar bot-avatar cs-avatar-preview" id="csAvatarPreview" title="点击更换头像"><span>星</span></div>
+          <div class="cs-avatar-actions">
+            <button class="ghost mini-btn" id="csAvatarPick">更换头像</button>
+            <button class="ghost mini-btn" id="csAvatarReset">恢复默认</button>
+          </div>
+        </div>
+        <p class="cs-hint">上传后拖动、缩放选择区域，和 QQ 换头像一样。</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-label">关系参数</div>
+        <label class="trait-row">
+          <span class="trait-name">热情</span>
+          <input type="range" id="csEnthusiasm" min="0" max="100" step="1" value="50">
+          <span class="trait-val" id="csEnthusiasmVal">50</span>
+        </label>
+        <label class="trait-row">
+          <span class="trait-name">好感</span>
+          <input type="range" id="csAffection" min="0" max="100" step="1" value="60">
+          <span class="trait-val" id="csAffectionVal">60</span>
+        </label>
+        <p class="cs-hint" id="csTraitPreview">实际生效：主动约 1 条/天 · 回复约 12 秒</p>
+        <div class="trait-detail" id="csTraitDetail"></div>
+        <p class="cs-hint">热情决定主动频率与回复速度（已 ×3 倍率）；好感决定黏人程度、接话窗口、追问深度，<strong>并叠加到主动次数上</strong>。</p>
+      </div>
+
+      <div class="cs-section" id="csInitiativeSection">
+        <div class="cs-label">主动与安静</div>
+        <label class="trait-row initiative-row">
+          <span class="trait-name">主动频率</span>
+          <input type="range" id="csInitiativeScale" min="0" max="2" step="0.1" value="1"
+                 aria-describedby="csInitiativeHint">
+          <span class="trait-val" id="csInitiativeScaleVal">100%</span>
+        </label>
+        <p class="cs-hint" id="csInitiativeHint">在热情与好感的基础上调整；调到 0% 后，她不会主动开口或追话。</p>
+        <label class="cs-quiet-row" for="csQuietFor">
+          <span>临时安静</span>
+          <select class="cs-input" id="csQuietFor">
+            <option value="0">不暂停主动</option>
+            <option value="1">安静 1 小时</option>
+            <option value="3">安静 3 小时</option>
+            <option value="8">安静 8 小时</option>
+            <option value="24">安静 1 天</option>
+            <option value="72">安静 3 天</option>
+            <option value="168">安静 7 天</option>
+          </select>
+        </label>
+        <p class="cs-hint" id="csQuietStatus">只暂停她主动找你；你发消息时，她仍会正常回复。</p>
+        <label class="cs-pressure-row" for="csLowPressure">
+          <span>
+            <strong>低压力陪伴</strong>
+            <small>主动分享轻松内容，不催回复、不诉苦，也不拿等待和孤独让你内疚。</small>
+          </span>
+          <span class="switch"><input type="checkbox" id="csLowPressure"><i></i></span>
+        </label>
+        <div class="trait-actions">
+          <button class="ghost mini-btn" id="csTraitSave" type="button">保存陪伴设置</button>
+        </div>
+      </div>
+
+      <div class="cs-section" id="csVoiceSection">
+        <div class="cs-label">角色语音</div>
+        <label class="cs-pressure-row" for="csVoiceEnabled">
+          <span>
+            <strong>让她说给你听</strong>
+            <small>启用后，她的文字消息会显示“朗读”；语音只按需合成，不会保存进聊天记录。</small>
+          </span>
+          <span class="switch"><input type="checkbox" id="csVoiceEnabled"><i></i></span>
+        </label>
+        <label class="cs-pressure-row" for="csVoiceAuto">
+          <span>
+            <strong>自动朗读新回复</strong>
+            <small>仅在当前私聊且页面可见时播放；切走、后台和其他角色消息都不会出声。</small>
+          </span>
+          <span class="switch"><input type="checkbox" id="csVoiceAuto"><i></i></span>
+        </label>
+        <label class="cs-quiet-row cs-voice-id-row" for="csVoiceId">
+          <span>音色 ID</span>
+          <input class="cs-input" id="csVoiceId" maxlength="80" autocomplete="off"
+                 spellcheck="false" placeholder="例如：alloy 或你的音色 ID">
+        </label>
+        <label class="trait-row initiative-row cs-voice-speed-row">
+          <span class="trait-name">语速</span>
+          <input type="range" id="csVoiceSpeed" min="0.5" max="2" step="0.1" value="1">
+          <span class="trait-val" id="csVoiceSpeedVal">1.0×</span>
+        </label>
+        <p class="cs-hint" id="csVoiceHint">先在全局设置中配置语音服务，再在这里为这个角色选择音色。</p>
+        <div class="trait-actions">
+          <button class="ghost mini-btn" id="csVoiceSave" type="button">保存语音设置</button>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-label"><span>聊天背景</span></div>
+        <div class="chat-bg-opts" id="csChatBgPresets"></div>
+        <div class="cs-bg-actions">
+          <label class="ghost mini-btn cs-bg-picker" id="csChatBgPick" for="csChatBgInput">上传图片</label>
+          <button class="ghost mini-btn" id="csChatBgReset" type="button">恢复默认</button>
+          <input class="sr-only" type="file" id="csChatBgInput"
+                 accept="image/png,image/jpeg,image/webp,image/gif"
+                 aria-label="上传聊天背景图片">
+        </div>
+        <p class="cs-hint" id="csChatBgStatus">背景与气泡按角色分别保存，仅在此浏览器生效。</p>
+      </div>
+
+      <div class="seg cs-side" id="csSideSeg">
+        <button data-side="in" class="active">星野的气泡</button>
+        <button data-side="out">我的气泡</button>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-label">样式</div>
+        <div class="bubble-opts" id="csStyles"></div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-label">
+          <span>自定义颜色</span>
+          <label class="switch"><input type="checkbox" id="csCustom"><i></i></label>
+        </div>
+        <div class="cs-colors" id="csColors">
+          <label>背景 1<input type="color" id="csBg1"></label>
+          <label>背景 2<input type="color" id="csBg2"></label>
+          <label>文字<input type="color" id="csFg"></label>
+          <button class="ghost mini-btn" id="csResetColor">默认色</button>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-label">角标 / 签名</div>
+        <div class="chips" id="csTags"></div>
+        <input class="cs-input" id="csTagInput" maxlength="12" placeholder="自定义角标，例如 MUM / ♡">
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-label">可爱装饰</div>
+        <div class="chips" id="csDecos"></div>
+        <input class="cs-input" id="csDecoInput" maxlength="16" placeholder="自定义颜文字，例如 (๑>ᴗ<๑)">
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-label">这个对话可用的表情包</div>
+        <div class="chips cs-groups" id="csStickerGroups"></div>
+        <p class="cs-hint">取消勾选后，星野不会使用这些表情包，表情面板里也不显示。</p>
+      </div>
+
+      <div class="cs-preview">
+        <div class="msg-row in" id="csPreviewIn">
+          <div class="avatar bot-avatar" id="csPreviewInAvatar"><span>星</span></div>
+          <div class="msg-body"><div class="bubble">被子裹严点</div></div>
+        </div>
+        <div class="msg-row out" id="csPreviewOut">
+          <div class="avatar me-avatar" id="csPreviewOutAvatar"><span>我</span></div>
+          <div class="msg-body"><div class="bubble">好呀，我马上到</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 角色陪伴主页：聊天与共同生活在前，管理入口在后 -->
+<div class="modal-mask hidden" id="profileMask">
+  <div class="modal profile-modal">
+    <header class="modal-head">
+      <h2>她的主页</h2>
+      <button class="icon-btn" id="profileClose" aria-label="关闭">
+        <svg><use href="#i-close"/></svg>
+      </button>
+    </header>
+    <div class="modal-body profile-body">
+      <section class="profile-hero" aria-label="角色陪伴信息">
+        <div class="profile-head">
+          <div class="avatar bot-avatar profile-avatar" id="profileAvatar"><span>?</span></div>
+          <div class="profile-meta">
+            <strong id="profileName">—</strong>
+            <span class="profile-today-kicker">此刻的她</span>
+            <span id="profileMood">正在同步心情…</span>
+          </div>
+        </div>
+        <div class="profile-stats" id="profileStats"></div>
+        <button class="btn-primary profile-continue" id="profileContinueBtn" type="button">
+          <svg><use href="#i-chat"/></svg><span>继续聊天</span>
+        </button>
+      </section>
+
+      <button class="profile-life-entry" id="profileSharedLifeBtn" type="button">
+        <span class="profile-life-icon"><svg><use href="#i-sticker"/></svg></span>
+        <span class="profile-life-copy">
+          <strong>我们的共同生活</strong>
+          <span id="profileLifeSummary">纪念日、约定，以及她写下的角色日记</span>
+          <span class="profile-life-next hidden" id="profileLifeNext"></span>
+        </span>
+        <svg class="profile-life-arrow"><use href="#i-back"/></svg>
+      </button>
+
+      <details class="profile-management">
+        <summary>资料与关系管理<svg><use href="#i-more"/></svg></summary>
+        <div class="profile-management-body">
+          <div class="setting-row profile-memory-row">
+            <div><strong>回忆中心</strong><span>查看、纠正和整理她记住的事</span></div>
+            <button class="ghost" id="profileMemoriesBtn" type="button">
+              <svg><use href="#i-folder"/></svg><span>管理回忆</span>
+            </button>
+          </div>
+          <div class="setting-row profile-memory-row">
+            <div><strong>人设与版本</strong><span>调整说话方式，修改前自动保留旧版本</span></div>
+            <button class="ghost" id="profilePersonaBtn" type="button">编辑人设</button>
+          </div>
+          <div class="profile-bond">
+            <div class="profile-bond-title">专属关系</div>
+            <p class="cs-hint" id="profileBondStatus">还没有绑定任何人。</p>
+            <p class="cs-hint" id="profileBondMeta"></p>
+            <div class="profile-bond-actions">
+              <button class="btn-primary" id="profileBondBtn">确定关系</button>
+            </div>
+            <p class="cs-hint" id="profileBondHint"></p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<!-- 人设编辑：revision 冲突保护，修改与恢复前保留快照 -->
+<div class="modal-mask hidden" id="personaMask">
+  <div class="modal persona-modal">
+    <header class="modal-head">
+      <div class="character-heading">
+        <h2 id="personaTitle">编辑人设</h2>
+        <p>保存后立即对后续聊天生效，不改写既有聊天和记忆</p>
+      </div>
+      <button class="icon-btn" id="personaClose" type="button" aria-label="关闭人设编辑">
+        <svg><use href="#i-close"/></svg>
+      </button>
+    </header>
+    <div class="modal-body persona-body">
+      <label class="character-field" for="personaEditor"><span>完整人设 Markdown</span>
+        <textarea class="cs-input persona-editor-input" id="personaEditor" rows="16" maxlength="12000"></textarea>
+      </label>
+      <div class="persona-editor-meta">
+        <span id="personaStatus">正在读取…</span>
+        <span id="personaCount">0 / 12000</span>
+      </div>
+      <section class="persona-history">
+        <div class="persona-history-head"><strong>历史版本</strong><span>恢复也会先备份当前版本</span></div>
+        <div class="persona-versions" id="personaVersions"></div>
+      </section>
+      <div class="modal-actions">
+        <button class="ghost" id="personaCancel" type="button">返回资料</button>
+        <button class="btn-primary" id="personaSave" type="button" disabled>保存人设</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 回忆中心：管理当前资料卡角色的长期记忆，不涉及原始聊天记录 -->
+<div class="modal-mask hidden" id="memoriesMask">
+  <div class="modal memory-modal">
+    <header class="modal-head memory-modal-head">
+      <div class="memory-heading">
+        <h2 id="memoriesTitle">回忆中心</h2>
+        <p>
+          <span class="memory-peer-name" id="memoriesPeerName">当前角色</span>
+          <span>管理长期记忆，不会删除原始聊天记录</span>
+        </p>
+      </div>
+      <button class="icon-btn" id="memoriesClose" type="button" aria-label="关闭回忆中心">
+        <svg><use href="#i-close"/></svg>
+      </button>
+    </header>
+    <div class="modal-body memory-body">
+      <div class="memory-toolbar">
+        <label class="memory-search" for="memoriesSearch">
+          <svg><use href="#i-search"/></svg>
+          <input id="memoriesSearch" type="search" placeholder="搜索回忆正文" autocomplete="off" aria-label="搜索回忆正文">
+        </label>
+        <button class="ghost mini-btn memory-add-btn" id="memoriesAddBtn" type="button"
+                aria-expanded="false" aria-controls="memoryEditor">
+          <svg><use href="#i-plus"/></svg><span>新增回忆</span>
+        </button>
+      </div>
+
+      <div class="chips memory-filters" id="memoriesFilters" role="group" aria-label="按分类筛选">
+        <button class="chip memory-filter active" type="button" data-category="" aria-pressed="true">全部</button>
+        <button class="chip memory-filter" type="button" data-category="auto" aria-pressed="false">自动记忆</button>
+        <button class="chip memory-filter" type="button" data-category="fact" aria-pressed="false">重要事实</button>
+        <button class="chip memory-filter" type="button" data-category="nickname" aria-pressed="false">昵称</button>
+        <button class="chip memory-filter" type="button" data-category="anniversary" aria-pressed="false">纪念日</button>
+        <button class="chip memory-filter" type="button" data-category="agreement" aria-pressed="false">约定</button>
+      </div>
+
+      <form class="memory-editor hidden" id="memoryEditor" novalidate>
+        <div class="memory-editor-head">
+          <h3 id="memoryEditorTitle">新增回忆</h3>
+          <button class="icon-btn" id="memoryEditorClose" type="button" aria-label="收起编辑表单">
+            <svg><use href="#i-close"/></svg>
+          </button>
+        </div>
+        <label class="memory-field" for="memoryText">
+          <span>回忆正文</span>
+          <textarea class="cs-input memory-text" id="memoryText" rows="3" maxlength="2000"
+                    placeholder="例如：我喜欢下雨天喝热可可" required aria-required="true"
+                    aria-describedby="memoryEditorHint"></textarea>
+        </label>
+        <div class="memory-editor-options">
+          <label class="memory-category-field" for="memoryCategory">
+            <span>分类</span>
+            <select class="cs-input memory-category" id="memoryCategory">
+              <option value="auto">自动记忆</option>
+              <option value="fact" selected>重要事实</option>
+              <option value="nickname">昵称</option>
+              <option value="anniversary">纪念日</option>
+              <option value="agreement">约定</option>
+            </select>
+          </label>
+          <label class="memory-pin-option" for="memoryPinned">
+            <span>置顶这条回忆</span>
+            <span class="switch"><input type="checkbox" id="memoryPinned"><i></i></span>
+          </label>
+        </div>
+        <p class="cs-hint" id="memoryEditorHint">新增只会影响长期记忆，不会修改原始聊天记录。</p>
+        <p class="memory-form-error hidden" id="memoryFormError" role="alert"></p>
+        <div class="modal-actions">
+          <button class="ghost" id="memoryEditorCancel" type="button">取消</button>
+          <button class="btn-primary" id="memorySave" type="submit">保存回忆</button>
+        </div>
+      </form>
+
+      <div class="memory-summary">
+        <span id="memoriesCount" role="status" aria-live="polite"></span>
+        <button class="icon-btn" id="memoriesRefresh" type="button" title="刷新回忆" aria-label="刷新回忆">
+          <svg><use href="#i-refresh"/></svg>
+        </button>
+      </div>
+
+      <div class="memory-state memory-loading hidden" id="memoriesLoading" role="status">
+        <span class="memory-spinner" aria-hidden="true"></span>
+        <span id="memoriesLoadingText">正在读取回忆…</span>
+      </div>
+      <div class="memory-state memory-error hidden" id="memoriesError" role="alert">
+        <strong>回忆加载失败</strong>
+        <span id="memoriesErrorText"></span>
+        <button class="ghost mini-btn" id="memoriesRetry" type="button">重试</button>
+      </div>
+      <div class="memory-state memory-empty hidden" id="memoriesEmpty">
+        <strong id="memoriesEmptyTitle">还没有长期记忆</strong>
+        <span id="memoriesEmptyText">可以手动新增一条，让她记住重要的事。</span>
+        <button class="ghost mini-btn" id="memoriesEmptyAdd" type="button">
+          <svg><use href="#i-plus"/></svg><span>新增一条回忆</span>
+        </button>
+      </div>
+
+      <div class="memory-list" id="memoriesList" aria-label="回忆列表" tabindex="-1"></div>
+      <button class="ghost memory-more hidden" id="memoriesMore" type="button">加载更多</button>
+    </div>
+  </div>
+</div>
+
+<!-- 共同生活：纪念日、明确确认的约定与基于真实聊天的角色日记 -->
+<div class="modal-mask hidden" id="sharedLifeMask">
+  <div class="modal shared-life-modal">
+    <header class="modal-head shared-life-modal-head">
+      <div class="memory-heading shared-life-heading">
+        <h2 id="sharedLifeTitle">共同生活</h2>
+        <p>
+          <span class="memory-peer-name" id="sharedLifePeerName">当前角色</span>
+          <span>把重要的日子、约定和真实聊天整理在一起</span>
+        </p>
+      </div>
+      <button class="icon-btn" id="sharedLifeClose" type="button" aria-label="关闭共同生活并返回角色资料">
+        <svg><use href="#i-close"/></svg>
+      </button>
+    </header>
+    <div class="modal-body shared-life-body">
+      <section class="shared-life-overview" aria-label="共同生活总览">
+        <button class="shared-life-overview-item" id="sharedLifeAnniversarySummary" type="button"
+                data-shared-life-tab="anniversaries" aria-label="查看纪念日">
+          <strong id="sharedLifeAnniversaryTotal">0</strong><span>纪念日</span>
+        </button>
+        <button class="shared-life-overview-item" id="sharedLifeAgreementSummary" type="button"
+                data-shared-life-tab="agreements" aria-label="查看约定">
+          <strong id="sharedLifeAgreementTotal">0</strong><span>约定</span>
+        </button>
+        <button class="shared-life-overview-item" id="sharedLifeDiarySummary" type="button"
+                data-shared-life-tab="diaries" aria-label="查看角色日记">
+          <strong id="sharedLifeDiaryTotal">0</strong><span>角色日记</span>
+        </button>
+        <p class="shared-life-next" id="sharedLifeNext" aria-live="polite">正在读取共同生活…</p>
+      </section>
+      <div class="shared-life-tabs" id="sharedLifeTabs" role="tablist" aria-label="共同生活分类">
+        <button id="sharedLifeAnniversariesTab" type="button" role="tab" class="active"
+                data-shared-life-tab="anniversaries" aria-selected="true" aria-pressed="true"
+                aria-controls="sharedLifeAnniversariesPanel">纪念日</button>
+        <button id="sharedLifeAgreementsTab" type="button" role="tab"
+                data-shared-life-tab="agreements" aria-selected="false" aria-pressed="false"
+                aria-controls="sharedLifeAgreementsPanel" tabindex="-1">约定</button>
+        <button id="sharedLifeDiariesTab" type="button" role="tab"
+                data-shared-life-tab="diaries" aria-selected="false" aria-pressed="false"
+                aria-controls="sharedLifeDiariesPanel" tabindex="-1">角色日记</button>
+      </div>
+
+      <section class="shared-life-panel" id="sharedLifeAnniversariesPanel" role="tabpanel"
+               aria-labelledby="sharedLifeAnniversariesTab" tabindex="0">
+        <div class="shared-life-section-head">
+          <div><h3>纪念日</h3><p>这里只记录和展示，不会自动提醒。</p></div>
+          <button class="ghost mini-btn shared-life-add" id="sharedLifeAnniversaryAdd" type="button"
+                  aria-expanded="false" aria-controls="sharedLifeAnniversaryForm">
+            <svg><use href="#i-plus"/></svg><span>新增纪念日</span>
+          </button>
+        </div>
+        <form class="shared-life-editor hidden" id="sharedLifeAnniversaryForm" novalidate>
+          <div class="shared-life-editor-head">
+            <h3 id="sharedLifeAnniversaryFormTitle">新增纪念日</h3>
+            <button class="icon-btn" id="sharedLifeAnniversaryEditorClose" type="button" aria-label="收起纪念日表单">
+              <svg><use href="#i-close"/></svg>
+            </button>
+          </div>
+          <div class="shared-life-form-grid">
+            <label class="shared-life-field" for="sharedLifeAnniversaryTitleInput">
+              <span>标题（必填，最多 80 字）</span>
+              <input class="cs-input" id="sharedLifeAnniversaryTitleInput" maxlength="80" required
+                     aria-required="true" autocomplete="off" placeholder="例如：第一次聊天">
+            </label>
+            <label class="shared-life-field" for="sharedLifeAnniversaryDate">
+              <span>日期（必填）</span>
+              <input class="cs-input" id="sharedLifeAnniversaryDate" type="date" required aria-required="true">
+            </label>
+          </div>
+          <label class="shared-life-field" for="sharedLifeAnniversaryNote">
+            <span>备注（最多 500 字）</span>
+            <textarea class="cs-input shared-life-textarea" id="sharedLifeAnniversaryNote" rows="3"
+                      maxlength="500" placeholder="想记住的细节"></textarea>
+          </label>
+          <label class="shared-life-switch" for="sharedLifeAnniversaryYearly">
+            <span><strong>每年重复</strong><small>关闭后按单次纪念日记录</small></span>
+            <span class="switch"><input type="checkbox" id="sharedLifeAnniversaryYearly" checked><i></i></span>
+          </label>
+          <p class="cs-hint">纪念日只在这里记录和展示，不会自动发送提醒。</p>
+          <p class="shared-life-form-error hidden" id="sharedLifeAnniversaryFormError" role="alert"></p>
+          <div class="modal-actions">
+            <button class="ghost" id="sharedLifeAnniversaryCancel" type="button">取消</button>
+            <button class="btn-primary" id="sharedLifeAnniversarySave" type="submit">保存纪念日</button>
+          </div>
+        </form>
+        <div class="shared-life-list-meta">
+          <span id="sharedLifeAnniversaryCount" role="status" aria-live="polite"></span>
+          <button class="icon-btn" id="sharedLifeAnniversaryRefresh" type="button" title="刷新纪念日" aria-label="刷新纪念日">
+            <svg><use href="#i-refresh"/></svg>
+          </button>
+        </div>
+        <div class="memory-state memory-loading shared-life-state hidden" id="sharedLifeAnniversaryLoading" role="status">
+          <span class="memory-spinner" aria-hidden="true"></span><span>正在读取纪念日…</span>
+        </div>
+        <div class="memory-state memory-error shared-life-state hidden" id="sharedLifeAnniversaryError" role="alert">
+          <strong>纪念日加载失败</strong><span id="sharedLifeAnniversaryErrorText"></span>
+          <button class="ghost mini-btn" id="sharedLifeAnniversaryRetry" type="button">重试</button>
+        </div>
+        <div class="memory-state shared-life-state hidden" id="sharedLifeAnniversaryEmpty">
+          <strong>还没有纪念日</strong><span>新增一个重要日期；这里只记录和展示，不会自动提醒。</span>
+          <button class="ghost mini-btn" id="sharedLifeAnniversaryEmptyAdd" type="button">新增纪念日</button>
+        </div>
+        <div class="shared-life-list" id="sharedLifeAnniversaryList" aria-label="纪念日列表" tabindex="-1"></div>
+      </section>
+
+      <section class="shared-life-panel hidden" id="sharedLifeAgreementsPanel" role="tabpanel"
+               aria-labelledby="sharedLifeAgreementsTab" tabindex="0" aria-hidden="true">
+        <div class="shared-life-section-head">
+          <div><h3>约定</h3><p>新建后保持未确认，只有单独确认后才会跟进。</p></div>
+          <button class="ghost mini-btn shared-life-add" id="sharedLifeAgreementAdd" type="button"
+                  aria-expanded="false" aria-controls="sharedLifeAgreementForm">
+            <svg><use href="#i-plus"/></svg><span>新增约定</span>
+          </button>
+        </div>
+        <form class="shared-life-editor hidden" id="sharedLifeAgreementForm" novalidate>
+          <div class="shared-life-editor-head">
+            <h3 id="sharedLifeAgreementFormTitle">新增约定</h3>
+            <button class="icon-btn" id="sharedLifeAgreementEditorClose" type="button" aria-label="收起约定表单">
+              <svg><use href="#i-close"/></svg>
+            </button>
+          </div>
+          <label class="shared-life-field" for="sharedLifeAgreementTitleInput">
+            <span>标题（必填，最多 80 字）</span>
+            <input class="cs-input" id="sharedLifeAgreementTitleInput" maxlength="80" required
+                   aria-required="true" autocomplete="off" placeholder="例如：周末一起看电影">
+          </label>
+          <label class="shared-life-field" for="sharedLifeAgreementDetails">
+            <span>具体内容（最多 1000 字）</span>
+            <textarea class="cs-input shared-life-textarea" id="sharedLifeAgreementDetails" rows="4"
+                      maxlength="1000" placeholder="把双方说好的具体内容写清楚"></textarea>
+          </label>
+          <label class="shared-life-field" for="sharedLifeAgreementDueAt">
+            <span>到期时间（必填，本地时间）</span>
+            <input class="cs-input" id="sharedLifeAgreementDueAt" type="datetime-local" step="60"
+                   required aria-required="true">
+          </label>
+          <p class="cs-hint" id="sharedLifeAgreementFormHint">保存后保持未确认；确认后才会在到期且适合主动说话时跟进。</p>
+          <p class="shared-life-form-error hidden" id="sharedLifeAgreementFormError" role="alert"></p>
+          <div class="modal-actions">
+            <button class="ghost" id="sharedLifeAgreementCancel" type="button">取消</button>
+            <button class="btn-primary" id="sharedLifeAgreementSave" type="submit">保存约定</button>
+          </div>
+        </form>
+        <p class="cs-hint shared-life-agreement-rule">未确认不跟进。已确认约定到期后，若主动总开关关闭、主动频率为 0、临时安静、免打扰或角色休息，会顺延。</p>
+        <div class="shared-life-list-meta">
+          <span id="sharedLifeAgreementCount" role="status" aria-live="polite"></span>
+          <button class="icon-btn" id="sharedLifeAgreementRefresh" type="button" title="刷新约定" aria-label="刷新约定">
+            <svg><use href="#i-refresh"/></svg>
+          </button>
+        </div>
+        <div class="memory-state memory-loading shared-life-state hidden" id="sharedLifeAgreementLoading" role="status">
+          <span class="memory-spinner" aria-hidden="true"></span><span>正在读取约定…</span>
+        </div>
+        <div class="memory-state memory-error shared-life-state hidden" id="sharedLifeAgreementError" role="alert">
+          <strong>约定加载失败</strong><span id="sharedLifeAgreementErrorText"></span>
+          <button class="ghost mini-btn" id="sharedLifeAgreementRetry" type="button">重试</button>
+        </div>
+        <div class="memory-state shared-life-state hidden" id="sharedLifeAgreementEmpty">
+          <strong>还没有约定</strong><span>保存后仍需单独确认；未确认的约定不会跟进。</span>
+          <button class="ghost mini-btn" id="sharedLifeAgreementEmptyAdd" type="button">新增约定</button>
+        </div>
+        <div class="shared-life-list" id="sharedLifeAgreementList" aria-label="约定列表" tabindex="-1"></div>
+      </section>
+
+      <section class="shared-life-panel hidden" id="sharedLifeDiariesPanel" role="tabpanel"
+               aria-labelledby="sharedLifeDiariesTab" tabindex="0" aria-hidden="true">
+        <div class="shared-life-section-head">
+          <div><h3>角色日记</h3><p>选择一天，整理当天真实发生过的双方聊天。</p></div>
+        </div>
+        <p class="cs-hint shared-life-diary-policy">只整理当天真实的双方聊天，不让模型补写情绪、线下事件或不存在的情节。</p>
+        <form class="shared-life-diary-form" id="sharedLifeDiaryForm" novalidate>
+          <label class="shared-life-field" for="sharedLifeDiaryDay">
+            <span>日记日期</span>
+            <input class="cs-input" id="sharedLifeDiaryDay" type="date" required aria-required="true">
+          </label>
+          <button class="btn-primary" id="sharedLifeDiaryGenerate" type="submit">生成日记</button>
+        </form>
+        <p class="shared-life-form-error hidden" id="sharedLifeDiaryFormError" role="alert"></p>
+        <div class="shared-life-list-meta">
+          <span id="sharedLifeDiaryCount" role="status" aria-live="polite"></span>
+          <button class="icon-btn" id="sharedLifeDiaryRefresh" type="button" title="刷新角色日记" aria-label="刷新角色日记">
+            <svg><use href="#i-refresh"/></svg>
+          </button>
+        </div>
+        <div class="memory-state memory-loading shared-life-state hidden" id="sharedLifeDiaryLoading" role="status">
+          <span class="memory-spinner" aria-hidden="true"></span><span>正在读取角色日记…</span>
+        </div>
+        <div class="memory-state memory-error shared-life-state hidden" id="sharedLifeDiaryError" role="alert">
+          <strong>角色日记加载失败</strong><span id="sharedLifeDiaryErrorText"></span>
+          <button class="ghost mini-btn" id="sharedLifeDiaryRetry" type="button">重试</button>
+        </div>
+        <div class="memory-state shared-life-state hidden" id="sharedLifeDiaryEmpty">
+          <strong>还没有角色日记</strong><span>日记只整理真实的双方聊天，不会凭空生成。</span>
+          <button class="ghost mini-btn" id="sharedLifeDiaryEmptyGenerate" type="button">生成所选日期的日记</button>
+        </div>
+        <div class="shared-life-list shared-life-diary-list" id="sharedLifeDiaryList" aria-label="角色日记列表" tabindex="-1"></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask hidden" id="avatarMask">
+  <div class="modal avatar-modal">
+    <header class="modal-head">
+      <h2>更换头像</h2>
+      <button class="icon-btn" id="avatarClose"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <div class="avatar-crop-stage" id="avatarStage">
+        <img id="avatarCropImg" alt="">
+        <span class="avatar-crop-ring"></span>
+      </div>
+      <div class="avatar-crop-zoom">
+        <span>−</span>
+        <input type="range" id="avatarZoom" min="100" max="400" value="100" aria-label="缩放">
+        <span>+</span>
+      </div>
+      <p class="cs-hint avatar-crop-hint">在圆圈内拖动调整位置，滚轮或滑杆缩放。</p>
+      <div class="modal-actions">
+        <button class="ghost" id="avatarRepick">重新选择</button>
+        <button class="ghost" id="avatarCancel">取消</button>
+        <button class="btn-primary" id="avatarConfirm">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="file" id="avatarFileInput" accept="image/*" hidden>
+
+<!-- 新建表情分类 -->
+<div class="modal-mask hidden" id="categoryMask">
+  <div class="modal mini-modal">
+    <header class="modal-head">
+      <h2>新建表情分类</h2>
+      <button class="icon-btn" id="categoryClose"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <input class="cs-input" id="categoryName" maxlength="24" placeholder="例如：星野日常 / 猫猫">
+      <p class="cs-hint">新建后可以往这个分类里添加图片，也可以随时删除。</p>
+      <div class="modal-actions">
+        <button class="ghost" id="categoryCancel">取消</button>
+        <button class="btn-primary" id="categoryCreate">创建</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 设置 -->
+<div class="modal-mask hidden" id="settingsMask">
+  <div class="modal" id="settings">
+    <header class="modal-head">
+      <h2>设置</h2>
+      <button class="icon-btn" id="settingsClose"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body">
+      <section class="setup-panel hidden" id="setupPanel" aria-labelledby="setupTitle">
+        <span class="setup-eyebrow">首次启动</span>
+        <h3 id="setupTitle">先让星野连上模型</h3>
+        <p id="setupDescription">填写下面的模型 API，保存后显式完成初始化。此步骤不会自动请求外部模型。</p>
+        <ol class="setup-steps">
+          <li>填写 Base URL、API Key 和模型名</li>
+          <li>保存并完成初始化，再按需要进行真实实测</li>
+        </ol>
+        <p class="setup-state" id="setupState" role="status"></p>
+        <button class="btn-primary" id="setupComplete" type="button">保存并完成初始化</button>
+      </section>
+      <p class="service-settings-state hidden" id="serviceSettingsState" role="alert"></p>
+      <div class="setting-row">
+        <div><strong>主题</strong><span>云白 QQ 蓝 / 静谧夜蓝</span></div>
+        <div class="seg" id="themeSeg">
+          <button data-theme="light">浅色</button>
+          <button data-theme="dark">深色</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div><label for="settingsDensity"><strong>消息密度</strong></label><span>调整聊天消息之间的间距，不改变其他页面</span></div>
+        <select class="cs-input settings-choice" id="settingsDensity">
+          <option value="comfortable">舒适</option>
+          <option value="compact">紧凑</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div><label for="settingsFontSize"><strong>消息字号</strong></label><span>只调整聊天气泡文字，手机输入框保持适合触控的大小</span></div>
+        <select class="cs-input settings-choice" id="settingsFontSize">
+          <option value="standard">标准</option>
+          <option value="large">大</option>
+          <option value="xlarge">特大</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div><label for="settingsSendKey"><strong>发送快捷键</strong></label><span id="settingsSendKeyHint">Shift + Enter 始终换行；手机端请点发送按钮</span></div>
+        <select class="cs-input settings-choice" id="settingsSendKey">
+          <option value="enter">Enter 发送</option>
+          <option value="ctrl-enter">Ctrl + Enter 发送</option>
+        </select>
+      </div>
+      <label class="setting-row" for="settingsImmersion">
+        <div><strong>沉浸模式</strong><span>收起聊天中的版本、正常连接状态和内部数值；断线错误与设置入口始终保留</span></div>
+        <span class="switch"><input type="checkbox" id="settingsImmersion" aria-label="开启沉浸模式"><i></i></span>
+      </label>
+      <label class="setting-row" for="settingsNotifications">
+        <div><strong>页外通知</strong><span id="settingsNotificationState">关闭；仅在你主动开启时请求通知权限</span></div>
+        <span class="switch"><input type="checkbox" id="settingsNotifications" aria-label="开启页外通知"><i></i></span>
+      </label>
+      <div class="setting-row">
+        <div><strong>聊天外观</strong><span>按角色设置背景、气泡、颜色和小装饰</span></div>
+        <button class="ghost" id="settingsChatStyle">去设置</button>
+      </div>
+      <div class="setting-row">
+        <div><strong>添加角色</strong><span>头像 + 名字，自动联网搜索并蒸馏人设</span></div>
+        <button class="ghost" id="settingsAddCharacter">添加</button>
+      </div>
+      <div class="setting-row">
+        <div><strong>数据备份</strong><span>包含聊天、回忆、人设和群数据，不含密钥；恢复前请先停止星伴</span></div>
+        <button class="ghost" id="settingsBackup" type="button">下载备份</button>
+      </div>
+      <div class="setting-row hidden" id="settingsLanSyncRow">
+        <div><strong>手机与电脑同步</strong><span>同一 Wi-Fi 自动发现；发送前自动备份，无需云端</span></div>
+        <button class="ghost" id="settingsLanSync" type="button">打开</button>
+      </div>
+      <section class="update-settings hidden" id="settingsUpdateRow" aria-label="软件更新">
+        <div class="setting-row">
+          <div><strong>软件更新</strong><span id="settingsUpdateState">仅检查公开版本信息，不会上传聊天或个人配置</span></div>
+          <button class="ghost" id="settingsUpdateCheck" type="button">检查更新</button>
+        </div>
+        <label class="setting-row" for="settingsUpdateAuto">
+          <div><strong>启动时自动检查</strong><span>每次启动都会检查；新版本由你确认后才会下载</span></div>
+          <span class="switch"><input type="checkbox" id="settingsUpdateAuto" aria-label="自动检查更新"><i></i></span>
+        </label>
+        <div class="setting-row">
+          <div><label for="settingsUpdateChannel"><strong>更新通道</strong></label><span>测试版优先体验，稳定版适合日常使用</span></div>
+          <select class="cs-input settings-choice" id="settingsUpdateChannel"><option value="test">测试版</option><option value="stable">稳定版</option></select>
+        </div>
+      </section>
+      <details class="settings-advanced" id="settingsAdvanced">
+        <summary>
+          <span><strong>高级与开发者配置</strong><small>模型、接口、诊断和连接</small></span>
+          <svg><use href="#i-back"/></svg>
+        </summary>
+        <div class="settings-advanced-body">
+          <div class="setting-row column">
+            <div><strong>访问令牌</strong><span>桌面和手机 App 自动使用；浏览器局域网访问时可在此修改</span></div>
+            <div class="token-input">
+              <input id="settingsToken" type="password" autocomplete="off" placeholder="未设置">
+              <button class="password-toggle" type="button" data-target="settingsToken" aria-label="显示访问令牌" aria-pressed="false">显示</button>
+              <button id="settingsTokenSave">保存</button>
+            </div>
+          </div>
+          <div class="setting-row column">
+            <div><strong>模型 API</strong><span>全局设置 · 保存后立即生效，重启也保留</span></div>
+            <div class="setting-stack">
+              <div class="password-field">
+                <input class="cs-input" id="settingsApiKey" type="password" autocomplete="off" placeholder="API Key（留空则不修改）">
+                <button class="password-toggle" type="button" data-target="settingsApiKey" aria-label="显示模型 API Key" aria-pressed="false">显示</button>
+              </div>
+              <input class="cs-input" id="settingsBaseUrl" placeholder="https://api.deepseek.com">
+              <input class="cs-input" id="settingsModel" placeholder="deepseek-flash">
+              <div class="setting-inline">
+                <span class="cs-hint" id="settingsApiState">未配置</span>
+                <button class="ghost mini-btn" id="settingsLlmTest" type="button">实测模型</button>
+                <button class="btn-primary mini-btn" id="settingsLlmSave">保存模型设置</button>
+              </div>
+              <p class="cs-hint diagnostic-test-result" id="settingsLlmTestState" aria-live="polite">只有点击「实测模型」才会使用已保存配置发送一条固定测试消息。</p>
+            </div>
+          </div>
+          <div class="setting-row column">
+            <div><strong>角色语音服务</strong><span>OpenAI 兼容 /v1/audio/speech · 按需合成，音频不写入聊天或备份</span></div>
+            <div class="setting-stack">
+              <select class="cs-input" id="settingsTtsMode" aria-label="语音服务模式">
+                <option value="off">关闭语音服务</option>
+                <option value="local">本地语音服务</option>
+                <option value="cloud">云端语音服务</option>
+              </select>
+              <input class="cs-input" id="settingsTtsEndpoint" inputmode="url" autocomplete="off"
+                     spellcheck="false" placeholder="完整的 /v1/audio/speech 接口地址">
+              <input class="cs-input" id="settingsTtsModel" autocomplete="off"
+                     spellcheck="false" placeholder="语音模型，例如：tts-1">
+              <div class="password-field">
+                <input class="cs-input" id="settingsTtsApiKey" type="password" autocomplete="off"
+                       placeholder="API Key（留空则不修改）">
+                <button class="password-toggle" type="button" data-target="settingsTtsApiKey" aria-label="显示语音服务 API Key" aria-pressed="false">显示</button>
+              </div>
+              <input class="cs-input" id="settingsTtsVoice" autocomplete="off" maxlength="120"
+                     placeholder="实测音色 ID（仅用于诊断，不改变角色设置）">
+              <p class="cs-hint" id="settingsTtsPrivacy">只发送被朗读的文字、音色和语速，不发送人设、记忆或聊天上下文。</p>
+              <div class="setting-inline">
+                <span class="cs-hint" id="settingsTtsState">语音服务已关闭</span>
+                <button class="ghost mini-btn" id="settingsTtsTest" type="button">实测语音</button>
+                <button class="btn-primary mini-btn" id="settingsTtsSave">保存语音服务</button>
+              </div>
+              <p class="cs-hint diagnostic-test-result" id="settingsTtsTestState" aria-live="polite">实测使用已保存配置、固定短句和所填音色；音频不保存，也不依赖角色语音开关。</p>
+            </div>
+          </div>
+          <div class="setting-row column diagnostics-block">
+            <div class="diagnostics-head">
+              <div><strong>运行诊断</strong><span>重新检查只读本地状态，不会请求模型或语音服务</span></div>
+              <button class="ghost mini-btn" id="diagnosticsRefresh" type="button">重新检查</button>
+            </div>
+            <div class="diagnostics-list" id="diagnosticsList" aria-live="polite">
+              <p class="cs-hint">打开设置后自动检查本地状态。</p>
+            </div>
+          </div>
+          <div class="setting-row">
+            <div><strong>连接地址</strong><span id="settingsUrl">-</span></div>
+            <button class="ghost" id="settingsReconnect">重新连接</button>
+          </div>
+          <div class="setting-row">
+            <div><strong>经典客户端</strong><span>Stapxs QQ Lite（功能更全）</span></div>
+            <button class="ghost" id="settingsStapxs">打开</button>
+          </div>
+          <div class="setting-row about">
+            <div><strong>星伴</strong><span>自建聊天页面 · OneBot 11 直连</span></div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<!-- 添加角色：生成/导入草稿 → 编辑/试聊 → 显式提交 -->
+<div class="modal-mask hidden" id="characterMask">
+  <div class="modal character-modal">
+    <header class="modal-head">
+      <div class="character-heading">
+        <h2>添加角色</h2>
+        <p>先检查人设和聊感，确认后再让她正式入住</p>
+      </div>
+      <button class="icon-btn" id="characterClose" aria-label="关闭"><svg><use href="#i-close"/></svg></button>
+    </header>
+    <div class="modal-body character-body">
+      <div class="char-add-row">
+        <div class="avatar char-preview" id="characterPreview"><span>?</span></div>
+        <div class="char-add-info">
+          <button class="ghost mini-btn" id="characterPickAvatar" type="button">选择头像</button>
+          <p class="cs-hint">只使用本地图片，服务端会裁成 256×256；正式添加前必须选择。</p>
+        </div>
+      </div>
+      <label class="character-field" for="characterName"><span>角色名</span>
+        <input class="cs-input" id="characterName" maxlength="24" placeholder="例如：天童爱丽丝">
+      </label>
+      <div class="character-source-actions">
+        <button class="ghost" id="characterImport" type="button">导入 JSON 角色卡</button>
+        <button class="ghost" id="characterGenerate" type="button">联网生成草稿</button>
+      </div>
+      <p class="cs-hint" id="characterStatus">草稿与试聊不会写入正式角色、聊天或记忆。</p>
+      <div class="character-editor hidden" id="characterEditor">
+        <div class="character-form-grid">
+          <label class="character-field" for="characterSeries"><span>作品 / 来源</span>
+            <input class="cs-input" id="characterSeries" maxlength="80" placeholder="可留空">
+          </label>
+          <label class="character-field" for="characterAliases"><span>别名（顿号或逗号分隔）</span>
+            <input class="cs-input" id="characterAliases" placeholder="最多 8 项">
+          </label>
+        </div>
+        <label class="character-field" for="characterSummary"><span>一句话简介</span>
+          <textarea class="cs-input" id="characterSummary" rows="2" maxlength="240"></textarea>
+        </label>
+        <label class="character-field" for="characterInterests"><span>她自己的兴趣（顿号或逗号分隔）</span>
+          <input class="cs-input" id="characterInterests" placeholder="最多 8 项">
+        </label>
+        <label class="character-field" for="characterPersona"><span>完整人设 Markdown</span>
+          <textarea class="cs-input character-persona-input" id="characterPersona" rows="12" maxlength="12000"></textarea>
+        </label>
+        <div class="character-edit-meta">
+          <span id="characterRevision">草稿 revision 1</span>
+          <button class="ghost mini-btn" id="characterSaveDraft" type="button">保存修改</button>
+        </div>
+        <section class="character-trial" aria-label="创建前试聊">
+          <div class="character-trial-head">
+            <div><strong>创建前试聊</strong><span>最多保留 24 条临时上下文，重启即清空</span></div>
+            <span class="character-trial-badge">不写入记忆</span>
+          </div>
+          <div class="character-trial-log" id="characterTrialLog">
+            <div class="character-trial-empty" id="characterTrialEmpty">先说一句你好，看看她的语气是否合适。</div>
+          </div>
+          <div class="character-trial-composer">
+            <textarea class="cs-input" id="characterTrialInput" rows="2" maxlength="2000" placeholder="输入试聊消息，Enter 发送，Shift+Enter 换行"></textarea>
+            <button class="btn-primary" id="characterTrialSend" type="button">发送</button>
+          </div>
+        </section>
+      </div>
+      <div class="modal-actions">
+        <button class="ghost" id="characterCancel" type="button">取消</button>
+        <button class="btn-primary" id="characterCreate" type="button" disabled>确认添加角色</button>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="file" id="characterAvatarInput" accept="image/*" hidden>
+<input type="file" id="characterCardInput" accept=".json,application/json" hidden>
+
+<div class="modal-mask hidden" id="updateMask">
+  <div class="modal mini-modal update-modal" role="dialog" aria-modal="true" aria-labelledby="updateTitle">
+    <header class="modal-head"><div><span class="update-kicker">STARLIT UPDATE</span><h2 id="updateTitle">发现新版本</h2></div><button class="icon-btn" id="updateClose" aria-label="关闭"><svg><use href="#i-close"/></svg></button></header>
+    <div class="modal-body">
+      <p class="update-summary" id="updateSummary"></p>
+      <ul class="update-notes" id="updateNotes"></ul>
+      <progress class="update-progress hidden" id="updateProgress" max="100" value="0"></progress>
+      <p class="update-state" id="updateState" aria-live="polite"></p>
+      <div class="modal-actions update-actions"><button class="ghost" id="updateSkip" type="button">跳过此版本</button><button class="ghost" id="updateLater" type="button">稍后提醒</button><button class="btn-primary" id="updatePrimary" type="button">立即更新</button></div>
+    </div>
+  </div>
+</div>
+<div class="toast hidden" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+<script src="./updater.js?v=20261031a"></script>
+<script src="./app.js?v=20261029c"></script>
+</body>
+</html>

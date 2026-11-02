@@ -1,0 +1,18 @@
+星伴 / Starlit — 非官方 Apple Silicon macOS 适配版
+
+1. 将「星伴.app」拖到 Applications（应用程序）。
+2. 推出此磁盘映像，再从应用程序目录打开「星伴」。
+3. 设置自己的模型 API Key、Base URL 和模型名，保存后实测。
+
+原作：Unclecheng-li
+官网：https://unclecheng-li.github.io/starlit.com/
+macOS 适配：https://github.com/MarkYang44/Starlit-macOS
+
+本版基于 RC10；仅 Apple Silicon；在 macOS 27.0.1 验证。
+本地签名，未经过 Apple 公证。若系统阻止可信副本，请使用
+「系统设置 → 隐私与安全性 → 仍要打开」，无需关闭 Gatekeeper。
+
+数据保存在 ~/Library/Application Support/starlit-macos/。
+升级时保留该目录。模型请求会发送至你配置的服务商。
+通知需在设置中单独开启；关闭窗口后当前通知机制不工作。
+详细来源、源码范围和许可见应用 Resources/Notices 及项目文档。

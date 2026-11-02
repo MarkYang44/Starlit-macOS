@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>手机连接与同步 · 星伴</title>
+<style>
+:root{font-family:"Segoe UI","Microsoft YaHei",sans-serif;color:#272a35;background:#f7f8fc}body{margin:0;padding:30px}h1{font-size:25px;margin:16px 0 6px}p{line-height:1.65;color:#717587}.logo{width:64px;height:64px;border-radius:19px;box-shadow:0 6px 20px #26334b18}.card{background:white;border:1px solid #e8eaf0;border-radius:16px;padding:18px;margin:20px 0}.row{margin:13px 0}.label{font-size:12px;color:#9296a5;letter-spacing:.04em}.value{font:15px Consolas,monospace;margin-top:5px;word-break:break-all}.token-line{display:flex;align-items:center;gap:10px}.token-line .value{flex:1}.toggle,.ghost{border:1px solid #dfe3eb;border-radius:9px;background:#fff;color:#596173;padding:7px 11px;cursor:pointer}button{width:100%;border:0;border-radius:11px;background:#12a59a;color:white;padding:13px;font-size:15px;cursor:pointer}button:hover{filter:brightness(.96)}.toggle,.ghost{width:auto}.hint{background:#fff8e8;color:#86672d;border-radius:12px;padding:13px;font-size:13px;line-height:1.6}#status{text-align:center;min-height:22px;font-size:13px}.steps{font-size:13px;padding-left:20px;line-height:1.8;color:#626879}.ok{color:#12877f}.bad{color:#b44d59}
+</style></head>
+<body>
+<img class="logo" src="assets/icon.png" alt="星伴"><h1>手机与电脑同步</h1>
+<p>在安卓星伴中打开「设置 → 手机与电脑同步」。手机会自动搜索这台电脑。</p>
+<div class="steps"><ol><li>确认手机和电脑连接同一 Wi-Fi。</li><li>首次配对时，把下面的电脑访问令牌填到手机。</li><li>手机会记住令牌，之后可选择发送或接收，不必重复填写。</li></ol></div>
+<div class="card">
+  <div class="row"><div class="label">电脑局域网地址（自动发现时无需手填）</div><div class="value" id="host">正在读取…</div></div>
+  <div class="row"><div class="label">同步端口</div><div class="value" id="port"></div></div>
+  <div class="row"><div class="label">电脑访问令牌</div><div class="token-line"><div class="value" id="token">••••••••••••••••</div><button class="toggle" id="toggle" type="button">显示</button></div></div>
+</div>
+<button id="copy">复制首次配对信息</button><p id="status"></p>
+<div class="hint" id="requirement"></div><p id="syncState"></p>
+<p>首次连接可能弹出系统网络权限提示，请只在你信任的专用网络中使用。同步为整包覆盖，接收方会先自动备份。此 Mac 移植版尚未完成安卓真机联调。</p>
+<script>
+let info;let revealed=false;
+window.starlitDesktop.pairingInfo().then(x=>{
+  info=x;
+  document.querySelector('#host').textContent=x.addresses.join(' / ')||'请在网络设置中查看电脑 IPv4';
+  document.querySelector('#port').textContent=x.port;
+  document.querySelector('#requirement').textContent=x.requirement;
+  const state=document.querySelector('#syncState');
+  state.textContent=x.syncAvailable?'同步服务已启动，可以被手机自动发现。':'同步服务未启动：'+x.syncError;
+  state.className=x.syncAvailable?'ok':'bad';
+});
+document.querySelector('#toggle').onclick=()=>{
+  if(!info)return;revealed=!revealed;
+  document.querySelector('#token').textContent=revealed?info.token:'••••••••••••••••';
+  document.querySelector('#toggle').textContent=revealed?'隐藏':'显示';
+};
+document.querySelector('#copy').onclick=async()=>{
+  if(!info)return;const host=info.addresses[0]||'';
+  await navigator.clipboard.writeText(`主机：${host}\n同步端口：${info.port}\n电脑访问令牌：${info.token}`);
+  document.querySelector('#status').textContent='已复制；请只粘贴到你自己的手机';
+};
+</script></body></html>

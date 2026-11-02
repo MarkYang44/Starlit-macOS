@@ -1,0 +1,6 @@
+{
+  "name": "starlit-desktop",
+  "version": "1.0.0-rc.10-mac.3",
+  "description": "星伴 RC10 非官方 macOS Apple Silicon 适配版",
+  "main": "main.cjs"
+}
