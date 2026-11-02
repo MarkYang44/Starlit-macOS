@@ -1,11 +1,14 @@
 English | [简体中文](README.zh-CN.md)
 
+<img src="src/desktop/assets/icon.png" alt="星伴 / Starlit icon" width="112">
+
 # 星伴 · Starlit
 
 An **unofficial Apple Silicon adaptation** of [Unclecheng-li's Starlit](https://unclecheng-li.github.io/starlit.com/), bringing its local character chat interface and backend to macOS.
 
 Keep conversations and character memory on your Mac. Connect your own compatible model service, and chat through a desktop window backed by a native local process.
 
+[![Release](https://img.shields.io/github/v/release/MarkYang44/Starlit-macOS?include_prereleases&label=release)](https://github.com/MarkYang44/Starlit-macOS/releases)
 ![Platform](https://img.shields.io/badge/platform-macOS%20%C2%B7%20Apple%20Silicon-30343b)
 ![Status](https://img.shields.io/badge/status-community%20RC-orange)
 

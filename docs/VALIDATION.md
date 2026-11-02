@@ -1,7 +1,9 @@
 # RC10 macOS validation record
 
-**Release:** `1.0.0-rc.10-mac.3`  
-**Date:** 2026-11-02  
+**Release:** `1.0.0-rc.10-mac.3`
+
+**Date:** 2026-11-02
+
 **Runtime environment:** macOS 27.0.1, Apple Silicon / ARM64
 
 ## Current release checks
@@ -26,8 +28,10 @@ The package auditor's recognized fields and paths are a focused guard. The crede
 
 ## Artifact
 
-Filename: `Starlit-1.0.0-rc.10-mac.3-macOS-arm64.dmg`  
-Size: `972239723` bytes  
+Filename: `Starlit-1.0.0-rc.10-mac.3-macOS-arm64.dmg`
+
+Size: `972239723` bytes
+
 SHA-256: `2a5b8f4b42db9deba33f36165eb13653fad04a998eaaf1a87264003bb8b83da6`
 
 ## Earlier RC10 port validation

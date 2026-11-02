@@ -1,11 +1,14 @@
 [English](README.md) | 简体中文
 
+<img src="src/desktop/assets/icon.png" alt="星伴 / Starlit icon" width="112">
+
 # 星伴 · Starlit
 
 基于 **[Unclecheng-li 原作「星伴」](https://unclecheng-li.github.io/starlit.com/)** 的非官方 **Apple Silicon macOS 适配版**。
 
 在 Mac 上使用原有角色聊天界面、本地会话和角色记忆，连接自己选择的模型服务。应用自带原生本地后端，安装后的名称为 **星伴.app**。
 
+[![Release](https://img.shields.io/github/v/release/MarkYang44/Starlit-macOS?include_prereleases&label=release)](https://github.com/MarkYang44/Starlit-macOS/releases)
 ![Platform](https://img.shields.io/badge/platform-macOS%20%C2%B7%20Apple%20Silicon-30343b)
 ![Status](https://img.shields.io/badge/status-community%20RC-orange)
 

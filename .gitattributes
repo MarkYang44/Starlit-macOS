@@ -1,0 +1,7 @@
+* text=auto
+# Preserve upstream source formatting and third-party legal texts verbatim.
+notices/** -whitespace
+src/webclient/** -whitespace
+*.png binary
+*.jpg binary
+*.ico binary
